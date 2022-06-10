@@ -14,7 +14,7 @@ const buildNav = () => {
         //create li elements
         const newElement = document.createElement('li');
         //link the elements with their respective sections
-        newElement.innerHTML = `<li><a  href=#${section.id} class='menu__link'>${section.dataset.nav}</a></li>`;
+        newElement.innerHTML = `<a  href=#${section.id} class='menu__link'>${section.dataset.nav}</a>`;
         //append elements to the ul list
         ul.appendChild(newElement);
     })
@@ -33,17 +33,32 @@ window.onscroll = function (){
     //add active class to the section near the top viewport
     sections.forEach(section => {
         
-        if(window.scrollY >= section.offsetTop-10 && window.scrollY <= section.offsetTop + section.offsetHeight) {
+        if(window.scrollY >= section.offsetTop-150 && window.scrollY <= section.offsetTop + section.offsetHeight) {
 
             section.classList.add("your-active-class");
             //change the active class to grey
             section.style.backgroundColor ='grey';
 
-            sections.forEach(section2 => {
+            for (let i=0; i< ul.children.length; i++) {
+                let link  = ul.children[i].firstChild.href.split("#")[1];
+               if(link==section.id) {
+                   
+                   ul.children[i].classList.add("active");
+               }
+           }
 
+            sections.forEach(section2 => {
                 if(section !=section2) {
                     section2.classList.remove("your-active-class");
                     section2.style.backgroundColor ='';
+                    for (let i=0; i< ul.children.length; i++) {
+                        let link  = ul.children[i].firstChild.href.split("#")[1];
+                       if(link==section2.id) {
+                          
+                           ul.children[i].classList.remove("active");
+                       }
+                   }
+                   
                 }
             });
         } 
