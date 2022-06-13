@@ -17,6 +17,12 @@ const buildNav = () => {
         newElement.innerHTML = `<a  href=#${section.id} class='menu__link'>${section.dataset.nav}</a>`;
         //append elements to the ul list
         ul.appendChild(newElement);
+        //add event linstener for smooth scrolling
+        newElement.firstChild.onclick = function(event) {
+            event.preventDefault();
+            let idToScroll = (this.href.split("#")[1]);
+            document.getElementById(idToScroll).scrollIntoView({behavior: "smooth"});
+        }
     })
 
 }
@@ -46,7 +52,7 @@ window.onscroll = function (){
                    ul.children[i].classList.add("active");
                }
            }
-
+           //link the active class in the viewport to the corresponding section on the navbar
             sections.forEach(section2 => {
                 if(section !=section2) {
                     section2.classList.remove("your-active-class");
